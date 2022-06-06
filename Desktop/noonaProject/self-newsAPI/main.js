@@ -1,33 +1,31 @@
     let news;
-
-
     let menus = document.querySelectorAll("#menu-list > button");    
-
-    menus.forEach((menu) => {
-        menu.addEventListener("click",(event)=>{
-            getNewsByTopic(event);
-        });
-    });
-    
-    let getNewsByTopic = (event)=>{
-        let currentMenu = event.currentTarget.textContent;
-        console.log(currentMenu);
-    }
+    let url = "";
+    let newsHTML = '';
 
     let getLatestNews = async()=>{
-        let url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=business&page_size=10`);
+        url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=business&page_size=1`);
         let header = new Headers({'x-api-key' : '9cOmEeBlDd_8GHfIb6748kBIaLAIVEafVSWqCndLz6o'})
-
         let response = await fetch(url,{headers : header})
         let data = await response.json();
-        news = data.articles;
-        console.log(news)
-    
+        news = data.articles;    
         render();
+    }
+    
+
+    let getNewsByTopic = async(event)=>{
+        let currentMenu = event.currentTarget.textContent.toLowerCase();
+        url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=${currentMenu}&page_size=1`)
+        let header = new Headers({'x-api-key' : '9cOmEeBlDd_8GHfIb6748kBIaLAIVEafVSWqCndLz6o'})
+        let response = await fetch(url,{headers : header})
+        let data = await response.json();
+        news = data.articles;    
+        render();
+
     }
 
     let render = ()=>{
-        let newsHTML = '';
+        newsHTML = '';
         newsHTML = news.map((items) =>{
             return `<div class="news row">
                 <div class="col-lg-4">
@@ -41,11 +39,13 @@
                 </div>
             </div>`
         }).join('');
-        
-        // console.log(newsHTML);
         document.getElementById('news-board').innerHTML = newsHTML;
     }
-    console.log()
 
+    menus.forEach((menu) => {
+        menu.addEventListener("click",(event)=>{
+            getNewsByTopic(event);
+        });
+    });
 
     getLatestNews();
