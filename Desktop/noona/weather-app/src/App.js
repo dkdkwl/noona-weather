@@ -14,9 +14,16 @@ function App() {
     navigator.geolocation.getCurrentPosition((position)=>{
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
-      
-      console.log("현재위치",lat,lon)
+      getWeatherByCurrentLocation(lat,lon);
+      // console.log("현재위치",lat,lon)
     });
+  }
+
+  const getWeatherByCurrentLocation = async (lat,lon)=>{
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5979fa073a92be4229a06661e8b3626d`;
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log("data",data);
   }
 
   useEffect(()=>{
