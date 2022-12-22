@@ -3,4 +3,19 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+
+ .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+
+    .weather-box{
+        border: 3px solid #fff;
+        padding: 50px;
+        border-radius: 30px;
+        background-color: azure;
+    }
+ }   
 }
