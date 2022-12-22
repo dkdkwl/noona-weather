@@ -3,6 +3,7 @@ import WeatherBox from './component/WeatherBox';
 import WeatherButton from './component/WeatherButton';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -18,27 +19,32 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [city,setCity] = useState('');
   const cities = ['paris','new york','tokyo','seoul'];
+  const [loading,setLoading] = useState(false);
   const getCurrentLocation = ()=>{
     navigator.geolocation.getCurrentPosition((position)=>{
-      let lat = 48.864716;
-      let lon = 2.349014;
-      
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
       getWeatherByCurrentLocation(lat,lon);
       // console.log("현재위치",lat,lon)
     });
   }
 
   const getWeatherByCurrentLocation = async (lat,lon)=>{
+    setLoading(true);    
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5979fa073a92be4229a06661e8b3626d&units=metric`;
     let response = await fetch(url);
     let data = await response.json();
     setWeather(data);
+    setLoading(false);
   }
+
   const getWeatherByCity = async ()=>{
+    setLoading(true);
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5979fa073a92be4229a06661e8b3626d&units=metric`;
     let response = await fetch(url);
     let data = await response.json();
     setWeather(data);
+    setLoading(false);    
   }
 
   useEffect(()=>{
@@ -51,9 +57,17 @@ function App() {
 
 
   return (
-    <div  className='container'>
-      <WeatherBox weather = {weather} />
-      <WeatherButton cities = {cities} setCity = {setCity}/>
+    <div>
+      {loading ? (
+        <div className='container'>
+        <ClipLoader loading={loading} size={150}/>
+        </div>
+      ): (
+      <div className='container'>
+        <WeatherBox weather = {weather} />
+        <WeatherButton cities = {cities} setCity = {setCity}/>
+      </div>
+      )}
     </div>
   );
 }
