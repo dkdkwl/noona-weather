@@ -1,5 +1,6 @@
 import { useEffect,useState } from 'react';
-import './App.css';
+import WeatherBox from './component/WeatherBox';
+import './App.scss';
 
 
 // 1. 앱이 싱행되자마자 현재위치 기반의 날씨가 보인다.
@@ -31,8 +32,9 @@ function App() {
   },[])
 
   return (
-    <div className="App">
-      hiii
+    <div>
+      <WeatherBox/>
+      <WeatherButton/>
     </div>
   );
 }
