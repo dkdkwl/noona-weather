@@ -47,7 +47,7 @@ function App() {
   }
 
   useEffect(()=>{
-    if(city == ''){
+    if(city === ''){
       getCurrentLocation();
     }else{
       getWeatherByCity();
@@ -65,7 +65,7 @@ function App() {
         ) : (
           <div className='container'>
             <WeatherBox weather={weather} cities={cities}/>
-            <WeatherButton cities={cities} setCity={setCity}/>
+            <WeatherButton cities={cities} city={city} setCity={setCity}/>
           </div>
         )
       }
