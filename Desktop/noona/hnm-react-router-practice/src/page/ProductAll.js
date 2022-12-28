@@ -3,7 +3,7 @@ import { Container,Row,Col } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 
 
-const ProductAll = () => {
+const ProductAll = ({authenticate}) => {
     const [productList,setProductList] = useState([]);
     const getProducts = async ()=>{
         let url = `http://localhost:3004/products`;
@@ -23,7 +23,7 @@ const ProductAll = () => {
             {
               productList.map((menu,i)=>{
                 return(
-                  <Col lg={3} key={i}><ProductCard item={menu}/></Col>
+                  <Col lg={3} key={i}><ProductCard authenticate={authenticate} item={menu}/></Col>
                 )
               })
             }
