@@ -33,7 +33,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ProductAll/>}></Route>
         <Route path='/Login' element={<Login setAuthenticate={setAuthenticate} />}></Route>
-        <Route path='/product/:id' element={<PrivateRoute authenticate={authenticate}/>}></Route>
+        <Route path='/products/:id' element={<PrivateRoute authenticate={authenticate}/>}></Route>
       </Routes>
     </div>
   );
