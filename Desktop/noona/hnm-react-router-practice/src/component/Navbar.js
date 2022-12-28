@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-regular-svg-icons'
 import {faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
-const Navbar = () => {
+const Navbar = ({authenticate,setAuthenticate}) => {
     const menuList = [
     '여성',
     'Divided',
@@ -18,12 +18,14 @@ const Navbar = () => {
     const goToLogin = ()=>{
         navigate("/login");
     }
+    const showMain = ()=>{
+        navigate("/");
+    }
     const search = (event)=>{
         if(event.key === "Enter"){
             console.log("we click this key",event.key)
             //입력한 검색어를 읽어와서
             let keyword = event.target.value;
-            console.log(keyword)
             //url을 바꿔준다
             navigate(`/?q=${keyword}`)
         }
@@ -31,12 +33,24 @@ const Navbar = () => {
   return (
     <div>
         <div>
-            <div className='login-button' onClick={goToLogin}>
+            {
+                authenticate == true ?
+                <div className='login-button' onClick={()=>{
+                    showMain();
+                    setAuthenticate(false);
+                }}>
+                 <FontAwesomeIcon icon={faUser} />
+                    <div>로그아웃</div>
+                </div>
+                 : <div className='login-button' onClick={()=>{
+                    goToLogin();
+                 }}>
                 <FontAwesomeIcon icon={faUser} />
                 <div>로그인</div>
             </div>
+            }
         </div>
-        <div className='nav-section'>
+        <div className='nav-section' onClick={showMain}>
             <img width={100} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png" alt="" />
         </div>
         <div className='menu-area'>

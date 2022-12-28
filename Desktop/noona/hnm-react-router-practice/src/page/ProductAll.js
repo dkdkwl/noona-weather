@@ -8,12 +8,10 @@ const ProductAll = ({authenticate}) => {
     const [query,setQuery] = useSearchParams();
     const getProducts = async ()=>{
       let searchQuery = query.get('q') || "";
-      console.log("쿼리 값은?",searchQuery);
         let url = `http://localhost:3004/products?q=${searchQuery}`;
         let response = await fetch(url);
         let data = await response.json();
         setProductList(data);
-        console.log(data)
     }
     useEffect(()=>{
         getProducts();
