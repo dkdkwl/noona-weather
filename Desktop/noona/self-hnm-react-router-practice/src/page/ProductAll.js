@@ -1,26 +1,37 @@
-import React, { useState,useEffect } from 'react'
-import { Row,Col,Container } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Container,Row,Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const ProductAll = () => {
-    const [products,setProducts] = useState([]);
+const ProductAll = ({authenticate}) => {
+    const [productList,setProductList] = useState([]);
+    const navigator = useNavigate();
     const getProducts = async ()=>{
-        const url = `http://localhost:3004/products`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setProducts(data);
+        let url = `http://localhost:3004/products`;
+        let response = await fetch(url);
+        let data = await response.json();
+        setProductList(data);
+        console.log(productList)
     }
+    const moveProduct = (i)=>{
+        navigator(`/products/${i}`)
+    }
+
     useEffect(()=>{
         getProducts();
-    },[])
+    }
+    ,[]);
+
   return (
     <div>
         <Container>
             <Row>
                 {
-                    products.map((items,i)=>{
+                    productList.map((items,i)=>{
                         return(
-                            <Col lg={3} key={i}>
-                                <img src="https://lp2.hm.com/hmgoepprod?set=source[/97/28/97289ef2ed9039449198dccd550aedbc9875ce5f.jpg],origin[dam],category[ladies_jacketscoats_jackets],type[DESCRIPTIVESTILLLIFE],res[y],hmver[2]&call=url[file:/product/main]" alt="" />
+                            <Col lg={3} key={i} onClick={()=>{
+                                moveProduct(items.id)
+                            }}>
+                                <img src={items.img} alt="" />
                                 <h1>{items.title}</h1>
                                 <p>{items.price}</p>
                             </Col>

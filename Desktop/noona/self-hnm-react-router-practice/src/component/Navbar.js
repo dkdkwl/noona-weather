@@ -33,6 +33,11 @@ const Navbar = () => {
                 })
             }
         </ul>
+        <div>
+            <FontAwesomeIcon icon={faSearch} />
+            <input type="text" onKeyPress={(event)=>{search(event)}} />
+        </div>
+
     </div>
   )
 }
