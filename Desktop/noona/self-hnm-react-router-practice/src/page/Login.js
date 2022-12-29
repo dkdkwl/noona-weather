@@ -1,10 +1,9 @@
 import React from 'react'
 import { Form,Button,Container } from 'react-bootstrap'
 
-const loginUser = () => {
-    const submitEvent = (event)=>{
-        event.preventDefault;
-        debugger
+const Login = () => {
+    const loginUser = (event)=>{
+        event.preventDefault();
     }
   return (
     <Container>
@@ -16,7 +15,6 @@ const loginUser = () => {
             We'll never share your email with anyone else.
             </Form.Text>
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" />

@@ -22,9 +22,9 @@ function App() {
     <div className="App">
       <Navbar/>
       <Routes>
-        <Route path='/Products' element={<ProductAll/>}></Route>
+        <Route path='/' element={<ProductAll/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
-        <Route path='/Products/:id' element={<ProductsDetail/>}></Route>
+        <Route path='/products/:id' element={<ProductsDetail/>}></Route>
       </Routes>
     </div>
   );
