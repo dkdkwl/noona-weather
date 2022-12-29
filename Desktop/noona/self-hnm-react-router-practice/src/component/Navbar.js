@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser,faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({authenticate,setAuthenticate}) => {
     const menuList = ['여성','Divided',"남성","신생아/유아","아동","H&M HOME","Sale","지속가능성"];
     const navigate = useNavigate();
     const moveLogin = ()=>{
@@ -21,10 +21,19 @@ const Navbar = () => {
 
   return (
     <div className='header'>
-        <div className="login" onClick={()=>{ moveLogin(); }}>
-            <FontAwesomeIcon icon={faUser} />
-            로그인
-        </div>
+        
+        {
+            authenticate == true ? (
+                <div className="login" onClick={()=>{ setAuthenticate(false) }}>
+                    <FontAwesomeIcon icon={faUser} />로그아웃
+                </div>
+            ) : (
+                <div className="login" onClick={()=>{ moveLogin(); }}>
+                    <FontAwesomeIcon icon={faUser} />로그인
+                </div>
+            )
+        }
+        
         <div className='logoArea' onClick={()=>{ moveMain(); }}>
             <img width={100} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png" alt="" />
         </div>

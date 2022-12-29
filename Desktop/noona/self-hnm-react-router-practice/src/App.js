@@ -24,7 +24,7 @@ function App() {
   console.log("초기값",authenticate)
   return (
     <div className="App">
-      <Navbar/>
+      <Navbar authenticate = {authenticate} setAuthenticate={setAuthenticate}/>
       <Routes>
         <Route path='/' element={<ProductAll/>}></Route>
         <Route path='/Login' element={<Login setAuthenticate={setAuthenticate} authenticate={authenticate} />}></Route>
