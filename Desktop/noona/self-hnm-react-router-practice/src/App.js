@@ -2,9 +2,10 @@ import './App.css';
 import { Route,Routes } from 'react-router-dom';
 import ProductAll from './page/ProductAll';
 import Login from './page/Login';
-import ProductsDetail from './page/ProductsDetail';
+import PrivateRoute from './router/PrivateRoute';
 import Navbar from './component/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 
 
 // 1.전체상품페이지, 로그인,상품상세페이지
@@ -18,13 +19,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // 9. 상품을 검색 할 수 있다.
 
 function App() {
+  const [authenticate,setAuthenticate] = useState(false);
+
+  console.log("초기값",authenticate)
   return (
     <div className="App">
       <Navbar/>
       <Routes>
         <Route path='/' element={<ProductAll/>}></Route>
-        <Route path='/Login' element={<Login />}></Route>
-        <Route path='/products/:id' element={<ProductsDetail />}></Route>
+        <Route path='/Login' element={<Login setAuthenticate={setAuthenticate} authenticate={authenticate} />}></Route>
+        <Route path='/products/:id' element={<PrivateRoute authenticate = {authenticate}/>}></Route>
       </Routes>
     </div>
   );
